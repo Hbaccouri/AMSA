@@ -1,1 +1,1 @@
-# AMSA
+The AMSA Framework (Advanced Multihull Simulator for Automation) is a collection of models and tools dedicated to modeling, generation, simulation, evalua-tion of adaptive control systems architectures evolving in an uncertain environment. 
