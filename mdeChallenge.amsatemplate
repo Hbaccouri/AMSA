@@ -1,0 +1,51 @@
+Template freeRobot {
+	output posX, posY
+	parameter{
+		int behavior;
+	}
+}
+
+Template controlledRobot {
+	input powerL, powerR
+	output posX, posY, heading
+	
+}
+
+Template GPS {
+	input posX, posY
+	output gpsPosX, gpsPosY
+	parameter{
+		int lostDataGPS;
+	}
+}
+
+Template Compass {
+	input heading
+	output compassHeading
+}
+
+Template DistanceMonitor {
+	input xLeader, yLeader, xFollower, yFollower
+	output distanceFollowerToLeader
+}
+
+Template NormalizePower {
+	input powerL,powerR
+	output normalizedPowerL, normalizedPowerR
+	parameter {
+		double powerMin;
+		double powerMax;
+		int motorCoef;		
+	}
+}
+
+Template FollowerController {
+	input xLeader,yLeader,xFollower,yFollower,headingFollower,distanceLeaderFollower
+	output LeftPower, RightPower
+	parameter {
+		double Kv;
+		double Kw;
+	}
+}
+
+

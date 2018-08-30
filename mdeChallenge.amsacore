@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AMSA:AMSAFramework xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AMSA="http://com.merconcept/AMSA" instancesCount="9">
+  <rootComponent name="mdeChallenge">
+    <data name="posXLeader" source="//@rootComponent/@components.7/@outputs.0"/>
+    <data name="posYLeader" source="//@rootComponent/@components.7/@outputs.1"/>
+    <data name="gpsPosXLeader" source="//@rootComponent/@components.0/@outputs.0"/>
+    <data name="gpsPosYLeader" source="//@rootComponent/@components.0/@outputs.1"/>
+    <data name="distanceFollowerLeader" source="//@rootComponent/@components.6/@outputs.0"/>
+    <data name="normalizedPowerRight" source="//@rootComponent/@components.5/@outputs.1"/>
+    <data name="normalizedPowerLeft" source="//@rootComponent/@components.5/@outputs.0"/>
+    <data name="PowerRight" source="//@rootComponent/@components.4/@outputs.1"/>
+    <data name="PowerLeft" source="//@rootComponent/@components.4/@outputs.0"/>
+    <data name="posXFollower" source="//@rootComponent/@components.3/@outputs.0"/>
+    <data name="posYFollower" source="//@rootComponent/@components.3/@outputs.1"/>
+    <data name="followerheading" source="//@rootComponent/@components.3/@outputs.2"/>
+    <data name="followerheadingcompass" source="//@rootComponent/@components.2/@outputs.0"/>
+    <data name="gpsPosXfollower" source="//@rootComponent/@components.1/@outputs.0"/>
+    <data name="gpsPosYfollower" source="//@rootComponent/@components.1/@outputs.1"/>
+    <components xsi:type="AMSA:LeafComponent" name="LeaderGPS" freq="4.0">
+      <outputs name="gpsPosX"/>
+      <outputs name="gpsPosY"/>
+      <inputs name="posX" source="//@rootComponent/@data.0"/>
+      <inputs name="posY" source="//@rootComponent/@data.1"/>
+      <leafTemplate href="mdeChallenge.amsatemplate#GPS"/>
+      <parameters name="lostDataGPS" value="0.0"/>
+    </components>
+    <components xsi:type="AMSA:LeafComponent" name="FollowerGPS" freq="4.0">
+      <outputs name="gpsPosX"/>
+      <outputs name="gpsPosY"/>
+      <inputs name="posX" source="//@rootComponent/@data.9"/>
+      <inputs name="posY" source="//@rootComponent/@data.10"/>
+      <leafTemplate href="mdeChallenge.amsatemplate#GPS"/>
+    </components>
+    <components xsi:type="AMSA:LeafComponent" name="FollowerCompass" freq="4.0">
+      <outputs name="compassHeading"/>
+      <inputs name="heading" source="//@rootComponent/@data.11"/>
+      <leafTemplate href="mdeChallenge.amsatemplate#Compass"/>
+    </components>
+    <components xsi:type="AMSA:LeafComponent" name="Follower" freq="4.0">
+      <outputs name="posX"/>
+      <outputs name="posY"/>
+      <outputs name="heading"/>
+      <inputs name="powerL" source="//@rootComponent/@data.6"/>
+      <inputs name="powerR" source="//@rootComponent/@data.5"/>
+      <leafTemplate href="mdeChallenge.amsatemplate#controlledRobot"/>
+    </components>
+    <components xsi:type="AMSA:LeafComponent" name="MyFollowerController" freq="4.0">
+      <outputs name="LeftPower"/>
+      <outputs name="RightPower"/>
+      <inputs name="xLeader" source="//@rootComponent/@data.2"/>
+      <inputs name="yLeader" source="//@rootComponent/@data.3"/>
+      <inputs name="xFollower" source="//@rootComponent/@data.13"/>
+      <inputs name="yFollower" source="//@rootComponent/@data.14"/>
+      <inputs name="headingFollower" source="//@rootComponent/@data.12"/>
+      <inputs name="distanceLeaderFollower" source="//@rootComponent/@data.4"/>
+      <leafTemplate href="mdeChallenge.amsatemplate#FollowerController"/>
+      <parameters name="Kv" value=""/>
+      <parameters name="Kw" value=""/>
+    </components>
+    <components xsi:type="AMSA:LeafComponent" name="MyNormalizePower">
+      <outputs name="normalizedPowerL"/>
+      <outputs name="normalizedPowerR"/>
+      <inputs name="powerL" source="//@rootComponent/@data.8"/>
+      <inputs name="powerR" source="//@rootComponent/@data.7"/>
+      <leafTemplate href="mdeChallenge.amsatemplate#NormalizePower"/>
+      <parameters name="powerMin" value="-100.0"/>
+      <parameters name="powerMax" value="100.0"/>
+      <parameters name="motorCoef" value="0.0"/>
+    </components>
+    <components xsi:type="AMSA:LeafComponent" name="MyDistanceMonitor">
+      <outputs name="distanceFollowerToLeader"/>
+      <inputs name="xLeader" source="//@rootComponent/@data.0"/>
+      <inputs name="yLeader" source="//@rootComponent/@data.1"/>
+      <inputs name="xFollower" source="//@rootComponent/@data.9"/>
+      <inputs name="yFollower" source="//@rootComponent/@data.10"/>
+      <leafTemplate href="mdeChallenge.amsatemplate#DistanceMonitor"/>
+    </components>
+    <components xsi:type="AMSA:LeafComponent" name="Leader">
+      <outputs name="posX"/>
+      <outputs name="posY"/>
+      <leafTemplate href="mdeChallenge.amsatemplate#freeRobot"/>
+      <parameters name="behavior"/>
+    </components>
+  </rootComponent>
+  <templatesContainers href="mdeChallenge.amsatemplate#/"/>
+</AMSA:AMSAFramework>
