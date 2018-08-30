@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="AMSA" nsURI="http://com.merconcept/AMSA" nsPrefix="AMSA">
+  <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeComponent" eSuperTypes="#//Component">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="data" upperBound="-1" eType="#//Data"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="components" upperBound="-1"
+        eType="#//Component" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="autoScheduling" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LeafComponent" eSuperTypes="#//Component #//TimeableObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="leafTemplate" lowerBound="1"
+        eType="ecore:EClass ../../AMSAtemplate/model/amsaTemplate.ecore#//LeafTemplate"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//Parameter" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Input" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//Source"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Output" eSuperTypes="#//NamedElement #//Source"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Data" eSuperTypes="#//NamedElement #//Source">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//Source"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AMSAFramework">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rootComponent" lowerBound="1"
+        eType="#//CompositeComponent" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="instancesCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="templatesContainers" upperBound="-1"
+        eType="ecore:EClass ../../AMSAtemplate/model/amsaTemplate.ecore#//TemplatesContainer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="interfaceContainers" upperBound="-1"
+        eType="ecore:EClass ../../AMSAinterface/model/AMSAinterface.ecore#//InterfaceContainer"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Component" abstract="true" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outputs" upperBound="-1"
+        eType="#//Output" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" upperBound="-1"
+        eType="#//Input" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="schedulingPriority" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="interfacesProvided" upperBound="-1"
+        eType="#//ProviderPort" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="interfacesRequired" upperBound="-1"
+        eType="#//RequirePort" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimeableObject" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="freq" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        defaultValueLiteral="10"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Source" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositePort" eSuperTypes="#//Output #//Input"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ProviderPort">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="interface" lowerBound="1"
+        eType="ecore:EClass ../../AMSAinterface/model/AMSAinterface.ecore#//Interface"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RequirePort">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="link" eType="#//ProviderPort"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="interface" lowerBound="1"
+        eType="ecore:EClass ../../AMSAinterface/model/AMSAinterface.ecore#//Interface"/>
+  </eClassifiers>
+</ecore:EPackage>
